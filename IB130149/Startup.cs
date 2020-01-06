@@ -11,9 +11,16 @@ namespace IB130149
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                         .SetBasePath(env.ContentRootPath)
+                         .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
+                         .AddEnvironmentVariables(); //override settings with environment variables
+
+            var config = builder.Build();
+
+            Configuration = config;
         }
 
         public IConfiguration Configuration { get; }
