@@ -6,3 +6,31 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Ime
+            </th>
+            <th>
+                Prezime
+            </th>
+            <th>
+                Email
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach(var x in ViewBag.korisnici)
+        {
+        <tr>
+            <td>@x.Ime</td>
+            <td>@x.Prezime</td>
+            <td>@x.Email</td>
+
+        </tr>
+        }
+    </tbody>
+</table>

@@ -6,20 +6,25 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using IB130149.Models;
+using IB130149.Context;
 
 namespace IB130149.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private MyContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, MyContext db)
         {
             _logger = logger;
+            _context = db;
         }
 
         public IActionResult Index()
         {
+            List<Korisnik> korisnici = _context.Korisnik.ToList();
+            ViewBag.korisnici = korisnici;
             return View();
         }
 
