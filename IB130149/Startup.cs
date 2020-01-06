@@ -5,22 +5,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace IB130149
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        private readonly IWebHostEnvironment _env;
+
+        public Startup(IWebHostEnvironment env)
         {
-            var builder = new ConfigurationBuilder()
-                         .SetBasePath(env.ContentRootPath)
-                         .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
-                         .AddEnvironmentVariables(); //override settings with environment variables
-
-            var config = builder.Build();
-
-            Configuration = config;
+            _env = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -28,9 +24,19 @@ namespace IB130149
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string _connectionString;
+
             services.AddControllersWithViews();
+
+            if(_env.IsDevelopment())
+            {
+                _connectionString = Configuration.GetConnectionString("IB130149");
+            } else
+            {
+                _connectionString = Environment.GetEnvironmentVariable("SQLCONNSTR_");
+            }
             services.AddDbContext<MyContext>(x =>
-                x.UseSqlServer(Configuration.GetConnectionString("IB130149"))
+                x.UseSqlServer(_connectionString)
             );
         }
 
