@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Configuration;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace IB130149
@@ -13,30 +14,27 @@ namespace IB130149
     public class Startup
     {
         private readonly IWebHostEnvironment _env;
+        public IConfiguration Configuration { get; set; }
 
-        public Startup(IWebHostEnvironment env)
+        public Startup()
         {
-            _env = env;
-        }
+            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-        public IConfiguration Configuration { get; }
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile($"appsettings.json")
+                .AddJsonFile($"appsettings.{environmentName}.json")
+                .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string _connectionString;
-
             services.AddControllersWithViews();
 
-            if(_env.IsDevelopment())
-            {
-                _connectionString = Configuration.GetConnectionString("IB130149");
-            } else
-            {
-                _connectionString = Environment.GetEnvironmentVariable("SQLCONNSTR_");
-            }
             services.AddDbContext<MyContext>(x =>
-                x.UseSqlServer(_connectionString)
+                x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
         }
 
