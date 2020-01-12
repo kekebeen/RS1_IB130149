@@ -23,8 +23,8 @@ namespace IB130149.Controllers
 
         public IActionResult Index()
         {
-            List<Korisnik> korisnici = _context.Korisnik.ToList();
-            ViewBag.korisnici = korisnici;
+            List<User> users = _context.User.ToList();
+            ViewBag.users = users;
             return View();
         }
 

@@ -25,7 +25,7 @@ namespace IB130149.Context
             //    .OnDelete(DeleteBehavior.Restrict);
         }
 
-        public DbSet<Korisnik> Korisnik { get; set; }
-        public DbSet<Uposlenik> Uposlenik { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<Employee> Employee { get; set; }
     }
 }
