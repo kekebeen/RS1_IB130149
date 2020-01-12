@@ -23,11 +23,11 @@
     </thead>
 
     <tbody>
-        @foreach(var x in ViewBag.korisnici)
+        @foreach(var x in ViewBag.users)
         {
         <tr>
-            <td>@x.Ime</td>
-            <td>@x.Prezime</td>
+            <td>@x.Name</td>
+            <td>@x.Surname</td>
             <td>@x.Email</td>
 
         </tr>

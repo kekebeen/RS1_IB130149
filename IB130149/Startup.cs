@@ -23,7 +23,7 @@ namespace IB130149
         {
             services.AddControllersWithViews();
             services.AddDbContext<MyContext>(x =>
-                x.UseSqlServer(Configuration.GetConnectionString("IB130149"))
+                x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
         }
 
