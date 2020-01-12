@@ -17,11 +17,16 @@ namespace IB130149
 
         public Startup(IHostingEnvironment env)
         {
-            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-            var builder = new ConfigurationBuilder()
-                .AddJsonFile($"appsettings.{environmentName}.json")
-                .AddEnvironmentVariables();
+            var environmentName = env.EnvironmentName;
+            var builder = new ConfigurationBuilder();
+            
+            if(env.IsDevelopment())
+            {
+                builder.AddJsonFile("appsettings.Development.json");
+            } else
+            {
+                builder.AddEnvironmentVariables();
+            }
 
             Configuration = builder.Build();
         }
