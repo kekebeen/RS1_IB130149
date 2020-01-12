@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Configuration;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace IB130149
 {
@@ -14,7 +15,7 @@ namespace IB130149
     {
         public IConfiguration Configuration { get; set; }
 
-        public Startup()
+        public Startup(IHostingEnvironment env)
         {
             var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
