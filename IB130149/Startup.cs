@@ -7,13 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Configuration;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace IB130149
 {
     public class Startup
     {
-        private readonly IWebHostEnvironment _env;
         public IConfiguration Configuration { get; set; }
 
         public Startup()
@@ -21,7 +19,6 @@ namespace IB130149
             var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
             var builder = new ConfigurationBuilder()
-                .AddJsonFile($"appsettings.json")
                 .AddJsonFile($"appsettings.{environmentName}.json")
                 .AddEnvironmentVariables();
 
@@ -41,7 +38,7 @@ namespace IB130149
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            /*if (env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -50,9 +47,9 @@ namespace IB130149
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }*/
-            app.UseDeveloperExceptionPage();
-            app.UseHttpsRedirection();
+            }
+            // app.UseDeveloperExceptionPage();
+            // app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
