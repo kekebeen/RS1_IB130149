@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using IB130149.Models;
 using IB130149.Context;
+using IB130149.Helper;
 
 namespace IB130149.Controllers
 {
@@ -20,9 +21,11 @@ namespace IB130149.Controllers
             _logger = logger;
             _context = db;
         }
-
+        [Authorization(isAdmin: true, isRepairman: true, isSeller: true, isClient: true)]
         public IActionResult Index()
         {
+            //TODO: handle redirect logic here once auth is ready
+            //Redirect to area controllers based on employee role
             List<User> users = _context.User.ToList();
             ViewBag.users = users;
             return View();

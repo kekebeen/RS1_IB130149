@@ -27,5 +27,6 @@ namespace IB130149.Context
 
         public DbSet<User> User { get; set; }
         public DbSet<Employee> Employee { get; set; }
+        public DbSet<AuthorizationToken> AuthorizationToken { get; set; }
     }
 }
