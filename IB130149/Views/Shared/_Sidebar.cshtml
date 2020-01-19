@@ -1,0 +1,63 @@
+﻿@using  IB130149.Models
+@using  Microsoft.AspNetCore.Http
+@using  IB130149.Helper;
+
+@{
+    User loggedInUser = Context.GetLoggedInuser();
+    bool isClient = loggedInUser.isClient;
+    bool isAdmin = false;
+    bool isRepairman = false;
+    bool isSeller = false;
+    if (loggedInUser.Employee != null)
+    {
+        isAdmin = loggedInUser.Employee.Any(x => (bool)x.isAdmin);
+        isRepairman = loggedInUser.Employee.Any(x => (bool)x.isRepairman);
+        isSeller = loggedInUser.Employee.Any(x => (bool)x.isSeller);
+
+    }
+}
+
+<aside class="left-sidebar bg-sidebar">
+    <div id="sidebar" class="sidebar sidebar-with-footer">
+        <!-- Aplication Brand -->
+        <div class="app-brand">
+            <a href="/index.html" title="Sleek Dashboard">
+                <svg class="brand-icon" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="30" height="33" viewBox="0 0 30 33">
+                    <g fill="none" fill-rule="evenodd">
+                        <path class="logo-fill-blue" fill="#7DBCFF" d="M0 4v25l8 4V0zM22 4v25l8 4V0z"></path>
+                        <path class="logo-fill-white" fill="#FFF" d="M11 4v25l8 4V0z"></path>
+                    </g>
+                </svg>
+                <span class="brand-name text-truncate">Computer repair</span>
+            </a>
+        </div>
+        <!-- begin sidebar scrollbar -->
+        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;">
+            <div class="sidebar-scrollbar" style="overflow: hidden; width: auto; height: 100%;">
+
+                <!-- sidebar menu -->
+                    @if(isClient)
+                    {
+                        <partial name="_SidebarClient" />
+                    }
+
+                    @if(isAdmin)
+                    {
+                        <partial name="_SidebarAdmin" />
+                    }
+
+                    @if(isRepairman)
+                    {
+                        <partial name="_SidebarRepairman" />
+                    }
+
+                    @if(isSeller)
+                    {
+                        <partial name="_SidebarSeller" />
+                    }
+
+            </div><div class="slimScrollBar" style="background: rgb(128, 128, 128); width: 5px; position: absolute; top: 294px; opacity: 0.5; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 180.622px;"></div><div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+        </div>
+
+    </div>
+</aside>
