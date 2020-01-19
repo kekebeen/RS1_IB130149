@@ -14,17 +14,29 @@ namespace IB130149
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        public IConfiguration Configuration { get; set; }
 
-        public IConfiguration Configuration { get; }
+        public Startup(IHostingEnvironment env)
+        {
+            var environmentName = env.EnvironmentName;
+            var builder = new ConfigurationBuilder();
+            
+            if(env.IsDevelopment())
+            {
+                builder.AddJsonFile("appsettings.Development.json");
+            } else
+            {
+                builder.AddEnvironmentVariables();
+            }
+
+            Configuration = builder.Build();
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             services.AddDbContext<MyContext>(x =>
                 x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
