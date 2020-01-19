@@ -19,6 +19,26 @@ namespace IB130149.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("IB130149.Models.AuthorizationToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AuthorizationToken");
+                });
+
             modelBuilder.Entity("IB130149.Models.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -26,7 +46,7 @@ namespace IB130149.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("ContractEnd")
+                    b.Property<DateTime?>("ContractEnd")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("ContractStart")
@@ -85,6 +105,15 @@ namespace IB130149.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("IB130149.Models.AuthorizationToken", b =>
+                {
+                    b.HasOne("IB130149.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IB130149.Models.Employee", b =>
