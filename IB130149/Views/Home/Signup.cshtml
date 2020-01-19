@@ -1,0 +1,80 @@
+﻿@model IB130149.ViewModels.SignupVm
+@{
+    ViewData["Title"] = "Register";
+    string error_message = (string)TempData["error_message"];
+    Layout = "_AuthLayout";
+}
+
+@if (error_message != null)
+{
+    <div class="alert alert-dismissible fade show alert-danger mb-4" role="alert">
+        <i class="mdi mdi-alert mr-1"></i>
+        @error_message
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+<div class="card">
+    <div class="card-header bg-primary">
+        <div class="app-brand">
+            <a href="javascript:void(0)" target="_blank">
+                <svg class="brand-icon" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="30" height="33" viewBox="0 0 30 33">
+                    <g fill="none" fill-rule="evenodd">
+                        <path class="logo-fill-blue" fill="#7DBCFF" d="M0 4v25l8 4V0zM22 4v25l8 4V0z"></path>
+                        <path class="logo-fill-white" fill="#FFF" d="M11 4v25l8 4V0z"></path>
+                    </g>
+                </svg>
+                <span class="brand-name">Servis Racunara</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="card-body p-5">
+        <h4 class="text-dark mb-5">Sign In</h4>
+        <form asp-action="Register">
+            <div class="row">
+                <div class="form-group col-md-12 mb-4">
+                    <input asp-for="Username" type="text" class="form-control input-lg" id="username" aria-describedby="usernameHelp" placeholder="Username">
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12 mb-4">
+                    <input asp-for="Email" type="email" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="Email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12 ">
+                    <input asp-for="Password" type="password" class="form-control input-lg" id="password" placeholder="Password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12 ">
+                    <input asp-for="ConfirmPassword" type="password" class="form-control input-lg" id="confirmPassword" placeholder="Confirm Password">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12 mb-4">
+                    <input asp-for="Name" type="text" class="form-control input-lg" id="name" aria-describedby="nameHelp" placeholder="First Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12 mb-4">
+                    <input asp-for="Surname" type="text" class="form-control input-lg" id="surname" aria-describedby="surnameHelp" placeholder="Surname">
+                    <span asp-validation-for="Surname" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12 mb-4">
+                    <input asp-for="Address" type="text" class="form-control input-lg" id="address" aria-describedby="addressHelp" placeholder="Address">
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12 mb-4">
+                    <input asp-for="Telephone" type="text" class="form-control input-lg" id="telephone" aria-describedby="telephoneHelp" placeholder="Telephone">
+                    <span asp-validation-for="Telephone" class="text-danger"></span>
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-lg btn-primary btn-block mb-4">Sign Up</button>
+                    <p>
+                        Already have an account ?
+                        @Html.ActionLink("Sign In", "Signin", "Home", null, new { @class = "text-blue" });
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
