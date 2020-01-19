@@ -41,7 +41,7 @@ namespace IB130149
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -68,6 +68,21 @@ namespace IB130149
                     name: "AdminArea",
                     areaName: "Admin",
                     pattern: "/Admin/{controller=Home}/{action=index}/{id?}"
+                );
+                endpoints.MapAreaControllerRoute(
+                    name: "ClientArea",
+                    areaName: "Client",
+                    pattern: "/Client/{controller=Home}/{action=index}/{id?}"
+                );
+                endpoints.MapAreaControllerRoute(
+                    name: "RepairmanArea",
+                    areaName: "Repair",
+                    pattern: "/Service/{controller=Home}/{action=index}/{id?}"
+                );
+                endpoints.MapAreaControllerRoute(
+                    name: "SellerArea",
+                    areaName: "Seller",
+                    pattern: "/Seller/{controller=Home}/{action=index}/{id?}"
                 );
             });
         }
