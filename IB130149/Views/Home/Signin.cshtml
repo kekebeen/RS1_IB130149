@@ -1,0 +1,78 @@
+﻿@model IB130149.ViewModels.LoginVM
+@{
+    ViewData["Title"] = "Login";
+    string error_message = (string)TempData["error_message"];
+    string success_message = (string)TempData["success_message"];
+    Layout = "_AuthLayout";
+}
+
+@if (error_message != null)
+{
+    <div class="alert alert-dismissible fade show alert-danger mb-4" role="alert">
+        <i class="mdi mdi-alert mr-1"></i>
+        @error_message
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+@if (success_message != null)
+{
+    <div class="alert alert-dismissible fade show alert-success mb-4" role="alert">
+        <i class="mdi mdi-alert mr-1"></i>
+        @success_message
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+<div class="card">
+    <div class="card-header bg-primary">
+        <div class="app-brand">
+            <a href="javascript:void(0)" target="_blank">
+                <svg class="brand-icon" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="30" height="33" viewBox="0 0 30 33">
+                    <g fill="none" fill-rule="evenodd">
+                        <path class="logo-fill-blue" fill="#7DBCFF" d="M0 4v25l8 4V0zM22 4v25l8 4V0z"></path>
+                        <path class="logo-fill-white" fill="#FFF" d="M11 4v25l8 4V0z"></path>
+                    </g>
+                </svg>
+                <span class="brand-name">Servis Racunara</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="card-body p-5">
+        <h4 class="text-dark mb-5">Sign In</h4>
+        <form asp-action="Login">
+            <div class="row">
+                <div class="form-group col-md-12 mb-4">
+                    <input asp-for="Email" type="email" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="Username">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12 ">
+                    <input asp-for="Password" type="password" class="form-control input-lg" id="password" placeholder="Password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="col-md-12">
+                    <div class="d-flex my-2 justify-content-between">
+                        <div class="d-inline-block mr-3">
+                            <label class="control control-checkbox">
+                                Remember me
+                                <input asp-for="RememberMe" type="checkbox">
+                                <div class="control-indicator"></div>
+                            </label>
+
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block mb-4">Sign In</button>
+                    <p>
+                        Don't have an account yet ?
+                        @Html.ActionLink("Sign Up", "Signup", "Home", null, new { @class = "text-blue"} );
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

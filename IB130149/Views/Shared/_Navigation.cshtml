@@ -1,0 +1,63 @@
+﻿@using  IB130149.Models;
+@using  IB130149.Helper;
+
+@{ 
+    User user = Context.GetLoggedInuser();
+}
+
+<header class="main-header " id="header">
+    <nav class="navbar navbar-static-top navbar-expand-lg">
+        <!-- Sidebar toggle button -->
+        <button id="sidebar-toggler" class="sidebar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+
+        <div class="ml-auto navbar-right">
+            <ul class="nav navbar-nav">
+                <!-- User Account -->
+                <li class="dropdown user-menu">
+                    <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <img src="https://api.adorable.io/avatars/285/abott@adorable.png" class="user-image" alt="User Image">
+                        @if (user != null)
+                        {
+                            <span class="d-none d-lg-inline-block">@user.Username</span>
+                        }
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <!-- User image -->
+                        <li class="dropdown-header">
+                            <img src="https://api.adorable.io/avatars/285/abott@adorable.png" class="img-circle" alt="User Image">
+                            @if (user != null)
+                            {
+                            <div class="d-inline-block">
+                                @user.Name @user.Surname <small class="pt-1">@user.Email</small>
+                            </div>
+                            }
+                        </li>
+
+                        <li>
+                            <a href="user-profile.html">
+                                <i class="mdi mdi-account"></i> My Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="mdi mdi-email"></i> Messages
+                            </a>
+                        </li>
+                        <li class="dropdown-footer">
+                            <form asp-action="Logout" asp-controller="Home" class="d-inline-block w-100" id="logoutForm">
+                                <a href="#" id="logout_link"> 
+                                    <button type="submit">
+                                        <i class="mdi mdi-logout" onclick="logoutForm.submit()"></i>
+                                        Log Out
+                                    </button>
+                                </a>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

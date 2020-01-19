@@ -1,0 +1,30 @@
+﻿<ul class="nav sidebar-inner" id="sidebar-menu-seller">
+
+    <li class="has-sub active expand">
+        <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#seller" aria-expanded="false" aria-controls="seller">
+            <i class="mdi mdi-book-open-page-variant"></i>
+            <span class="nav-text">Seller menu</span> <b class="caret"></b>
+        </a>
+        <ul class="collapse show" id="seller" data-parent="#sidebar-menu-seller">
+            <div class="sub-menu">
+
+                <li class="section-title">
+                    Main
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Request" ? "active" : "")">
+                    <a class="sidenav-item-link" asp-controller="Request" asp-action="Index" asp-area="Seller">
+                        <span class="nav-text">Service Requests</span>
+                    </a>
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Order" ? "active" : "")">
+                    <a class="sidenav-item-link" asp-controller="Order" asp-action="Index" asp-area="Seller">
+                        <span class="nav-text">Service Orders</span>
+                    </a>
+                </li>
+
+            </div>
+        </ul>
+    </li>
+</ul>

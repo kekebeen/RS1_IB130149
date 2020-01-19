@@ -13,7 +13,7 @@ namespace IB130149.Models
         [ForeignKey(nameof(UserId))]
         public virtual User User { get; set; }
         public DateTime ContractStart { get;set; }
-        public DateTime ContractEnd { get; set; }
+        public DateTime? ContractEnd { get; set; }
         public bool? isAdmin { get; set; }
         public bool? isRepairman { get; set; }
         public bool? isSeller { get; set; }

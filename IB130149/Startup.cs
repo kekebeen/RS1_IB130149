@@ -1,12 +1,13 @@
 using IB130149.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Configuration;
+using System.IO;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace IB130149
@@ -39,6 +40,8 @@ namespace IB130149
             services.AddDbContext<MyContext>(x =>
                 x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
+            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,13 +53,20 @@ namespace IB130149
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            // app.UseDeveloperExceptionPage();
-            // app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseHttpsRedirection();
+            app.UseSession();
+
+            // handle custom css and js
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+            Path.Combine(Directory.GetCurrentDirectory(), "Template")),
+                RequestPath = "/assets"
+            });
 
             app.UseRouting();
 
@@ -65,6 +75,27 @@ namespace IB130149
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                    name: "AdminArea",
+                    areaName: "Admin",
+                    pattern: "/Admin/{controller=Home}/{action=index}/{id?}"
+                );
+                endpoints.MapAreaControllerRoute(
+                    name: "ClientArea",
+                    areaName: "Client",
+                    pattern: "/Client/{controller=Home}/{action=index}/{id?}"
+                );
+                endpoints.MapAreaControllerRoute(
+                    name: "RepairmanArea",
+                    areaName: "Repair",
+                    pattern: "/Service/{controller=Home}/{action=index}/{id?}"
+                );
+                endpoints.MapAreaControllerRoute(
+                    name: "SellerArea",
+                    areaName: "Seller",
+                    pattern: "/Seller/{controller=Home}/{action=index}/{id?}"
+                );
             });
         }
     }

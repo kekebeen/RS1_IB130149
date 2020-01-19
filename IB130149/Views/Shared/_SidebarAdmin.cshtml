@@ -1,0 +1,47 @@
+﻿<ul class="nav sidebar-inner" id="sidebar-menu-admin">
+
+    <li class="has-sub active expand">
+        <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#main" aria-expanded="false" aria-controls="main">
+            <i class="mdi mdi-book-open-page-variant"></i>
+            <span class="nav-text">Admin panel</span> <b class="caret"></b>
+        </a>
+        <ul class="collapse show" id="main" data-parent="#sidebar-menu-admin">
+            <div class="sub-menu">
+
+                <li class="section-title">
+                    Main
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                    @Html.ActionLink("Overview", "Index", "Home", new { area = "Admin" }, new { @class = "sidenav-item-link" })
+                </li>
+
+                <li class="section-title">
+                    Employees
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                    @Html.ActionLink("Overview", "Index", "Employee", new { area = "Admin" }, new { @class = "sidenav-item-link" })
+                </li>
+
+                <li class="section-title">
+                    Profit
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                    @Html.ActionLink("Overview", "Index", "Profit", new { area = "Admin" }, new { @class = "sidenav-item-link" })
+                </li>
+
+                <li class="section-title">
+                    Appeals
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                    @Html.ActionLink("Overview", "Index", "Appeal", new { area = "Admin" }, new { @class = "sidenav-item-link" })
+                </li>
+                class="@(ViewContext.RouteData.Values["Action"].ToString())"
+
+            </div>
+        </ul>
+    </li>
+</ul>

@@ -24,6 +24,6 @@ namespace IB130149.Models
 
         public bool isClient { get; set; }
 
-        public List<Employee> Employee { get; set; }
+        public ICollection<Employee> Employee { get; set; }
     }
 }

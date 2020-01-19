@@ -1,0 +1,26 @@
+﻿<ul class="nav sidebar-inner" id="sidebar-menu-client">
+
+    <li class="has-sub active expand">
+        <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#client" aria-expanded="false" aria-controls="client">
+            <i class="mdi mdi-book-open-page-variant"></i>
+            <span class="nav-text">Client panel</span> <b class="caret"></b>
+        </a>
+        <ul class="collapse show" id="client" data-parent="#sidebar-menu-client">
+            <div class="sub-menu">
+
+                <li class="section-title">
+                    Main
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                    @Html.ActionLink("Overview", "Index", "Home", new { area = "Client" }, new { @class = "sidenav-item-link" })
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "New" ? "active" : "")">
+                    @Html.ActionLink("Request a Service", "New", "Service", new { area = "Client" }, new { @class = "sidenav-item-link" })
+                </li>
+
+            </div>
+        </ul>
+    </li>
+</ul>
