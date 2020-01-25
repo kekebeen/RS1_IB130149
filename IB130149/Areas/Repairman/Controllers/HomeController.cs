@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace IB130149.Areas.Repairman.Controllers
 {
     [Area(nameof(Repairman))]
-    [Route("portal/service/[controller]")]
     [Authorization(isAdmin: false, isRepairman: true, isSeller: false, isClient: false)]
     public class HomeController : Controller
     {

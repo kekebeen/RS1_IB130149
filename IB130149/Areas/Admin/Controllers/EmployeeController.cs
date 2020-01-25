@@ -8,11 +8,15 @@ using Microsoft.AspNetCore.Mvc;
 namespace IB130149.Areas.Admin.Controllers
 {
     [Area(nameof(Admin))]
-    [Route("portal/admin/[controller]")]
     [Authorization(isAdmin: true, isRepairman: false, isSeller: false, isClient: false)]
-    public class AppealController : Controller
+    public class EmployeeController : Controller
     {
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult New()
         {
             return View();
         }
