@@ -61,29 +61,13 @@ namespace IB130149
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapAreaControllerRoute(
-                    name: "AdminArea",
-                    areaName: "Admin",
-                    pattern: "/Admin/{controller=Home}/{action=index}/{id?}"
-                );
-                endpoints.MapAreaControllerRoute(
-                    name: "ClientArea",
-                    areaName: "Client",
-                    pattern: "/Client/{controller=Home}/{action=index}/{id?}"
-                );
-                endpoints.MapAreaControllerRoute(
-                    name: "RepairmanArea",
-                    areaName: "Repair",
-                    pattern: "/Service/{controller=Home}/{action=index}/{id?}"
-                );
-                endpoints.MapAreaControllerRoute(
-                    name: "SellerArea",
-                    areaName: "Seller",
-                    pattern: "/Seller/{controller=Home}/{action=index}/{id?}"
-                );
             });
         }
     }
