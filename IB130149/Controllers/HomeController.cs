@@ -58,7 +58,7 @@ namespace IB130149.Controllers
                 }
 
             }
-            return null;
+            return RedirectToAction("Signin", "Home");
         }
 
         public IActionResult Signin(LoginVM? model)
