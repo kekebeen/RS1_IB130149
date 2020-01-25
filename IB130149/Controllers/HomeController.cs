@@ -54,7 +54,7 @@ namespace IB130149.Controllers
 
                 if (user.Employee.Any(x => (bool)x.isSeller))
                 {
-                    return RedirectToAction("Index", "Home", new { Area = "Seller" });
+                    return RedirectToAction("Index", "Request", new { Area = "Seller" });
                 }
 
             }
