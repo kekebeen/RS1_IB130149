@@ -3,6 +3,8 @@
 @using  IB130149.Helper;
 
 @{
+    string error_message = (string)TempData["error_message"];
+    string success_message = (string)TempData["success_message"];
     User loggedInUser = Context.GetLoggedInuser();
 }
 
@@ -11,14 +13,35 @@
 
 <partial name="_Head" />
 
-<body id="body" class="header-fixed sidebar-fixed sidebar-dark header-light">
-
+<body id="body" class="header-fixed sidebar-fixed sidebar-dark header-light position-relative">
 
     <div class="wraper">
         <partial name="_Sidebar.cshtml" />
         <div class="page-wrapper">
             <partial name="_Navigation.cshtml" />
             <div class="content-wrapper">
+
+                @if (error_message != null)
+                {
+                    <div class="alert alert-dismissible fade-in-up show alert-danger mb-4 mt-4 position-absolute" role="alert">
+                        <i class="mdi mdi-alert mr-1"></i>
+                        @error_message
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                }
+
+                @if (success_message != null)
+                {
+                    <div class="alert alert-dismissible fade-in-up show alert-success mb-4 mt-4 position-absolute" role="alert">
+                        <i class="mdi mdi-alert mr-1"></i>
+                        @success_message
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                }
                 <div class="content">
                     <div class="row">
                         <div class="col-lg-12">
@@ -41,19 +64,20 @@
                             }
                         </div>
                         <div class="col-lg-12">
-                            <div class="card card-default text-dark">
+                            <div class="card card-default text-dark p-4">
                                 @RenderBody()
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-           <partial name="_Footer.cshtml" />
+            <partial name="_Footer.cshtml" />
         </div>
     </div>
 
 
-        <partial name="_Scripts" />
+    <partial name="_Scripts" />
+    @RenderSection("Scripts", required: false);
 </body>
 </html>
 
