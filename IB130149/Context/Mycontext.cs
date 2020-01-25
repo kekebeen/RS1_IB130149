@@ -17,6 +17,23 @@ namespace IB130149.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<ServiceTicket>()
+                .HasOne(x => x.Customer)
+                .WithMany()
+                .HasForeignKey(f => f.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ServiceTicket>()
+                .HasOne(x => x.Employee)
+                .WithMany()
+                .HasForeignKey(f => f.EmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ServiceTicket>()
+                .HasOne(x => x.ServiceRequest)
+                .WithMany()
+                .HasForeignKey(f => f.ServiceRequestId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             //modelBuilder.Entity<Odjeljenje>()
             //    .HasOne(x => x.Razrednik)
@@ -28,5 +45,8 @@ namespace IB130149.Context
         public DbSet<User> User { get; set; }
         public DbSet<Employee> Employee { get; set; }
         public DbSet<AuthorizationToken> AuthorizationToken { get; set; }
+        public DbSet<ServiceRequest> ServiceRequest { get; set; }
+        public DbSet<ServiceTicket> ServiceTicket { get; set; }
+        public DbSet<ServiceStatus> ServiceStatus { get; set; }
     }
 }
