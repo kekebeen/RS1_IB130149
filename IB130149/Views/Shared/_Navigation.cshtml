@@ -36,7 +36,7 @@
                         </li>
 
                         <li>
-                            <a href="user-profile.html">
+                            <a asp-controller="Profile" asp-action="Index" asp-route-id="@user.Id">
                                 <i class="mdi mdi-account"></i> My Profile
                             </a>
                         </li>
@@ -46,7 +46,7 @@
                             </a>
                         </li>
                         <li class="dropdown-footer">
-                            <form asp-action="Logout" asp-controller="Home" class="d-inline-block w-100" id="logoutForm">
+                            <form asp-action="Logout" asp-controller="Home" asp-area="" class="d-inline-block w-100" id="logoutForm">
                                 <a href="#" id="logout_link"> 
                                     <button type="submit">
                                         <i class="mdi mdi-logout" onclick="logoutForm.submit()"></i>

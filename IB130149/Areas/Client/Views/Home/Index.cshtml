@@ -1,8 +1,84 @@
-﻿
+﻿@model IB130149.Areas.Client.ViewModels.ClientIndexVm
+@using IB130149.Areas.Client.ViewModels
+@using IB130149.Components;
+
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Overview";
 }
 
-<h1>Index of client</h1>
+    <div class="p-4">
+        <h3 class="mb-4">Most recent request status</h3>
+        <row class="no-gutters mb-3">
+            <div class="card col-md-4 no-padding bg-light">
+                <div class="card-body px-3 py-3">
+                    <div class="h1 text-muted text-right mb-2">
+                        <i class="mdi mdi-book"></i>
+                    </div>
 
+                    <small class="text-muted text-uppercase font-weight-bold">Deliver to</small>
+                    <p class="text-wrap mb-2">
+                        @Model.DeliveryAddress
+                    </p>
+
+                    @await Component.InvokeAsync("Badge", new { status = Model.Status })
+                </div>
+            </div>
+        </row>
+
+        <h3 class="mt-5">My service requests</h3>
+
+        <article class="mt-5">
+            <table class="table table-striped table-bordered" id="client-requests-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Delivery address</th>
+                        <th>Service at home</th>
+                        <th>Delivery</th>
+                        <th>Customer pickup</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ServiceRequestVm x in Model.ClientServiceRequests)
+                    {
+                        <tr>
+                            <td>@x.Name @x.Surname</td>
+                            <td>@x.DeliveryAddress</td>
+                            <td>
+                                <label class="control outlined control-checkbox checkbox-primary">
+                                    <input type="checkbox" checked="@x.IncludeHomeService" disabled>
+                                    <div class="control-indicator"></div>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="control outlined control-checkbox checkbox-primary">
+                                    <input type="checkbox" checked="@x.IncludeDelivery" disabled>
+                                    <div class="control-indicator"></div>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="control outlined control-checkbox checkbox-primary">
+                                    <input type="checkbox" checked="@x.IncludeCustomerPickup" disabled>
+                                    <div class="control-indicator"></div>
+                                </label>
+                            </td>
+                            <td>
+                                @await Component.InvokeAsync("Badge", new { status = x.Status })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </article>
+    </div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#client-requests-table').DataTable();
+
+        })
+    </script>
+}

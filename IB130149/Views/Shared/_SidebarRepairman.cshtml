@@ -18,9 +18,19 @@
                     </a>
                 </li>
 
+                <li class="section-title">
+                    Knowledge base
+                </li>
+
                 <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Knowledge" ? "active" : "")">
                     <a class="sidenav-item-link" asp-controller="Knowledge" asp-action="Index" asp-area="Repairman">
                         <span class="nav-text">Knowledge base</span>
+                    </a>
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Knowledge" && ViewContext.RouteData.Values["Action"].ToString() == "New"  ? "active" : "")">
+                    <a class="sidenav-item-link" asp-controller="Knowledge" asp-action="New" asp-area="Repairman">
+                        <span class="nav-text">Add new problem</span>
                     </a>
                 </li>
 

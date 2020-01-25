@@ -13,11 +13,11 @@
                 </li>
 
                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
-                    @Html.ActionLink("Overview", "Index", "Home", new { area = "Client" }, new { @class = "sidenav-item-link" })
+                    <a asp-action="Index" asp-controller="Home" asp-area="Client" class="sidenav-item-link">Overview</a>
                 </li>
 
                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "New" ? "active" : "")">
-                    @Html.ActionLink("Request a Service", "New", "Service", new { area = "Client" }, new { @class = "sidenav-item-link" })
+                    <a asp-action="New" asp-controller="Service" asp-area="Client" class="sidenav-item-link">Request a Service</a>
                 </li>
 
             </div>

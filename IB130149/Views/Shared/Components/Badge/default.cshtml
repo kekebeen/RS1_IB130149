@@ -1,0 +1,26 @@
+﻿@model IB130149.ViewModels.BadgeComponentVm;
+
+@{
+    var classes = "";
+    switch (Model.status)
+    {
+        case "In progress":
+            classes = "badge badge-warning";
+            break;
+        case "In review":
+            classes = "badge badge-warning";
+            break;
+        case "Done":
+            classes = "badge badge-success";
+            break;
+        default:
+            classes = "badge badge-secondary";
+            break;
+
+    }
+    }
+
+
+<div class="@classes">
+    @Model.status
+</div>

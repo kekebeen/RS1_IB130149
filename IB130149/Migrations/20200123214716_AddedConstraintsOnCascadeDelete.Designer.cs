@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IB130149.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20200117212106_UpdatedVirtualConstraint")]
-    partial class UpdatedVirtualConstraint
+    [Migration("20200123214716_AddedConstraintsOnCascadeDelete")]
+    partial class AddedConstraintsOnCascadeDelete
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,6 +73,95 @@ namespace IB130149.Migrations
                     b.ToTable("Employee");
                 });
 
+            modelBuilder.Entity("IB130149.Models.ServiceRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DeliveryAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Impression")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IncludeCustomerPickup")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IncludeDelivery")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IncludeHomeService")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RequestedById")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestedById");
+
+                    b.ToTable("ServiceRequest");
+                });
+
+            modelBuilder.Entity("IB130149.Models.ServiceStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServiceStatus");
+                });
+
+            modelBuilder.Entity("IB130149.Models.ServiceTicket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("RequestDoneDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ServiceRequestId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ServiceRequestId");
+
+                    b.ToTable("ServiceTicket");
+                });
+
             modelBuilder.Entity("IB130149.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -124,6 +213,36 @@ namespace IB130149.Migrations
                         .WithMany("Employee")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IB130149.Models.ServiceRequest", b =>
+                {
+                    b.HasOne("IB130149.Models.User", "Client")
+                        .WithMany()
+                        .HasForeignKey("RequestedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IB130149.Models.ServiceTicket", b =>
+                {
+                    b.HasOne("IB130149.Models.User", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("IB130149.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("IB130149.Models.ServiceRequest", "ServiceRequest")
+                        .WithMany()
+                        .HasForeignKey("ServiceRequestId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

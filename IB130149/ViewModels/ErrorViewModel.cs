@@ -1,6 +1,6 @@
 using System;
 
-namespace IB130149.Models
+namespace IB130149.ViewModels
 {
     public class ErrorViewModel
     {

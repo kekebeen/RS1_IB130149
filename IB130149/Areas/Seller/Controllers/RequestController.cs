@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace IB130149.Areas.Seller.Controllers
 {
     [Area(nameof(Seller))]
-    [Route("portal/desk/[controller]")]
     [Authorization(isAdmin: false, isRepairman: false, isSeller: true, isClient: false)]
     public class RequestController : Controller
     {

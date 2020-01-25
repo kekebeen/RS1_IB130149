@@ -13,34 +13,31 @@
                 </li>
 
                 <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
-                    @Html.ActionLink("Overview", "Index", "Home", new { area = "Admin" }, new { @class = "sidenav-item-link" })
+                    <a asp-action="Index" asp-controller="Home" asp-area="Admin" class="sidenav-item-link">Overview</a>
                 </li>
 
                 <li class="section-title">
                     Employees
                 </li>
 
-                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
-                    @Html.ActionLink("Overview", "Index", "Employee", new { area = "Admin" }, new { @class = "sidenav-item-link" })
+                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Employee" ? "active" : "")">
+                    <a asp-action="Index" asp-controller="Employee" asp-area="Admin" class="sidenav-item-link">List of employees</a>
+                </li>
+
+                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Employee" && ViewContext.RouteData.Values["Action"].ToString() == "New" ? "active" : "")">
+                    <a asp-action="New" asp-controller="Employee" asp-area="Admin" class="sidenav-item-link">Add new employee</a>
                 </li>
 
                 <li class="section-title">
-                    Profit
+                    Articles
                 </li>
 
-                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
-                    @Html.ActionLink("Overview", "Index", "Profit", new { area = "Admin" }, new { @class = "sidenav-item-link" })
+                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Article" ? "active" : "")">
+                    <a asp-action="Index" asp-controller="Article" asp-area="Admin" class="sidenav-item-link">All articles</a>
                 </li>
-
-                <li class="section-title">
-                    Appeals
+                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Article" && ViewContext.RouteData.Values["Action"].ToString() == "New" ? "active" : "")">
+                    <a asp-action="New" asp-controller="Article" asp-area="Admin" class="sidenav-item-link">Add new article</a>
                 </li>
-
-                <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
-                    @Html.ActionLink("Overview", "Index", "Appeal", new { area = "Admin" }, new { @class = "sidenav-item-link" })
-                </li>
-                class="@(ViewContext.RouteData.Values["Action"].ToString())"
-
             </div>
         </ul>
     </li>
