@@ -1,7 +1,48 @@
-﻿@{ 
+﻿@model IB130149.Areas.Client.ViewModels.ServiceRequestCreateVm
+@{ 
     Layout = "_Layout";
     ViewData["Title"] = "Request a Service";
-
 }
 
-<b>Request a new service here</b>
+<h3 class="mb-4">Create new service request</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" asp-controller="Service" asp-area="Client" method="post">
+            <div class="row">
+                <div class="form-group col-md-12 mb-4">
+                    <input asp-for="Address" type="text" class="form-control input-lg" id="address" aria-describedby="address" placeholder="Delivery address">
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12 mb-4">
+                    <input asp-for="@Model.RequestDate" type="text" value="@Model.RequestDate.ToString("mm/dd/yyyy")" class="form-control input-lg" id="requestDate" aria-describedby="requestDate" placeholder="Date of request" disabled>
+                    <span asp-validation-for="@Model.RequestDate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12 ">
+                    <label class="control control-checkbox checkbox-primary">
+                        Include home service?
+                        <input type="checkbox" asp-for="IncludeHomeService" id="includehomeService">
+                        <div class="control-indicator" asp-validation-for="IncludeHomeService"></div>
+                    </label>
+                </div>
+                <div class="form-group col-md-12 ">
+                    <label class="control control-checkbox checkbox-primary">
+                        Item should be delivered to you?
+                        <input type="checkbox" asp-for="IncludeDelivery" id="includeDelivery">
+                        <div class="control-indicator" asp-validation-for="IncludeDelivery"></div>
+                    </label>
+                </div>
+                <div class="form-group col-md-12 mb-4">
+                    <label class="control control-checkbox checkbox-primary">
+                        I will pick up personally
+                        <input type="checkbox" asp-for="IncludeCustomerPickup" id="includeCustomerPickup">
+                        <div class="control-indicator" asp-validation-for="IncludeCustomerPickup"></div>
+                    </label>
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-lg btn-primary btn-block mb-4">Create new request</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
