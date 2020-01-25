@@ -63,6 +63,7 @@ namespace IB130149.Helper
             return db.AuthorizationToken
                 .Where(x => x.Value == token)
                 .Select(s => new User { 
+                    Id = s.User.Id,
                     Name = s.User.Name,
                     Surname = s.User.Surname,
                     Username = s.User.Username,
@@ -70,7 +71,8 @@ namespace IB130149.Helper
                     Password = s.User.Password,
                     Address = s.User.Address,
                     Telephone = s.User.Telephone,
-                    Employee = db.Employee.Where(x => x.UserId == s.UserId).ToList()
+                    Employee = db.Employee.Where(x => x.UserId == s.UserId).ToList(),
+                    isClient = s.User.isClient
                 })
                 .SingleOrDefault();
         }
